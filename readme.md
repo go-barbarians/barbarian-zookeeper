@@ -7,7 +7,7 @@
 This repo contains the configuration files and build scripts for the Barbarian Hadoop Distribution **ZooKeeper Docker image**.
 
 The latest release of the ZooKeeper Docker image is based on the following Apache Foundation software releases:
-- Apache Zookeeper
+- Apache Zookeeper 3.4.12
 
 ## Releases
 
