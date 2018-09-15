@@ -318,4 +318,4 @@ fi
 
 MY_ID=$((ORD+1))
 
-create_config && create_jvm_props && create_log_props && create_data_dirs && exec zkServer.sh start-foreground
+create_config && create_jvm_props && create_log_props && create_data_dirs && exec $ZK_HOME/bin/zkServer.sh start-foreground

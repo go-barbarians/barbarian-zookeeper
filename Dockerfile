@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
 ENV ZK_USER=zookeeper \
+    ZK_HOME=/opt/barbarian/zookeeper \
     ZK_DATA_DIR=/opt/barbarian/zookeeper/data \
     ZK_DATA_LOG_DIR=/opt/barbarian/zookeeper/data/log \
     ZK_LOG_DIR=/var/log/zookeeper \
