@@ -65,14 +65,19 @@ spec:
                     values:
                     - zk
               topologyKey: "kubernetes.io/hostname"
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
       - image: 535272059665.dkr.ecr.eu-west-1.amazonaws.com/zookeeper
         name: zookeeper
+        securityContext:
+          allowPrivilegeEscalation: false
         volumeMounts:
-        - mountPath: /zookeeper/conf
+        - mountPath: /opt/barbarian/zookeeper/conf
           name: zk-cfg-volume
         - name: datadir
-          mountPath: /zookeeper/data
+          mountPath: /opt/barbarian/zookeeper/data
         resources:
           requests:
             memory: "1Gi"
@@ -87,11 +92,11 @@ spec:
         command:
         - sh
         - -c
-        - "start-zookeeper \
+        - "/opt/barbarian/control/start-zookeeper \
           --servers=3 \
-          --data_dir=/zookeeper/data \
-          --data_log_dir=/zookeeper/log \
-          --conf_dir=/zookeeper/conf \
+          --data_dir=/opt/barbarian/zookeeper/data \
+          --data_log_dir=/opt/barbarian/zookeeper/data/log \
+          --conf_dir=/opt/barbarian/zookeeper/conf \
           --client_port=2181 \
           --election_port=3888 \
           --server_port=2888 \
@@ -110,7 +115,7 @@ spec:
             command:
             - sh
             - -c
-            - "zookeeper-ready 2181"
+            - "/opt/barbarian/control/zookeeper-ready 2181"
           initialDelaySeconds: 10
           timeoutSeconds: 5
         livenessProbe:
@@ -118,7 +123,7 @@ spec:
             command:
             - sh
             - -c
-            - "zookeeper-ready 2181"
+            - "/opt/barbarian/control/zookeeper-ready 2181"
           initialDelaySeconds: 10
           timeoutSeconds: 5
       volumes:
