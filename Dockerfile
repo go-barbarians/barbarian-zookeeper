@@ -14,7 +14,7 @@ RUN apt-get clean && \
     update-ca-certificates -f && \
     rm -rf /var/lib/apt/lists/*
 
-COPY ./opt/barbarian/zookeeper /opt/barbarian/zookeeper
+COPY ./opt/barbarian /opt/barbarian
 
 RUN set -x \
     && useradd $ZK_USER \
