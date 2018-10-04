@@ -1,0 +1,37 @@
+version: '1.0'
+steps:
+  get_packages:
+    title: get packages
+    description: Gets the latest packages
+    image: ubuntu:16.04
+    commands:
+      - apt-get update && apt-get upgrade -y && apt-get install -y python-pip unzip
+      - pip install awscli
+      - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+      - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+      - aws configure set default.region eu-west-1
+      - aws s3 cp s3://mvn.barbarians.io/zookeeper-$ZOOKEEPER_BUILD_NUMBER.tar.gz .
+      - tar -xzf zookeeper-$ZOOKEEPER_BUILD_NUMBER.tar.gz
+      - mkdir -p opt/barbarian
+      - mkdir -p opt/barbarian/zookeeper
+      - cp -R zookeeper-$ZOOKEEPER_BUILD_NUMBER/* opt/barbarian/zookeeper
+
+      # cleardown
+      - rm -f zookeeper-$ZOOKEEPER_BUILD_NUMBER.tar.gz
+    entry_point:
+      - /bin/bash
+
+  build_image:
+    type: build
+    description: Building the image...
+    image-name: dockerbarbarians/zookeeper
+    tag: unstable
+
+  push_image:
+    type: push
+    description: Push image to repo
+    candidate: '${{build_image}}'
+    tag: unstable
+    credentials:
+      username: '${{DOCKER_USER}}'
+      password: '${{DOCKER_PASS}}'
