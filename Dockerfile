@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM dockerbarbarians/barbarian-base:unstable
 
 ENV ZK_USER=hadoop \
     ZK_HOME=/opt/barbarian/zookeeper \
