@@ -236,6 +236,7 @@ while getopts "$optspec" optchar; do
                     ;;
                 service_name=*)
                     DOMAIN=${OPTARG##*=}
+                    ;;
                 data_dir=*)
                     DATA_DIR=${OPTARG##*=}
                     ;;
