@@ -121,6 +121,8 @@ Starts a ZooKeeper server based on the supplied options.
                         requests from other servers in the ensemble. The 
                         default is 2888. 
 
+    --service_name      The kubernetes service name
+
     --tick_time         The length of a ZooKeeper tick in ms. The default is 
                         2000.
 
@@ -232,6 +234,8 @@ while getopts "$optspec" optchar; do
                 servers=*)
                     SERVERS=${OPTARG##*=}
                     ;;
+                service_name=*)
+                    DOMAIN=${OPTARG##*=}
                 data_dir=*)
                     DATA_DIR=${OPTARG##*=}
                     ;;
