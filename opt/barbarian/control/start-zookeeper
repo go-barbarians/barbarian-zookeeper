@@ -182,12 +182,7 @@ function create_data_dirs() {
 function print_servers() {
     for (( i=1; i<=$SERVERS; i++ ))
     do
-        if [[ "$HOST" == "$NAME-$((i-1))" ]]
-        then
-             echo "server.$i=0.0.0.0:$SERVER_PORT:$ELECTION_PORT"
-        else
              echo "server.$i=$NAME-$((i-1)).$DOMAIN:$SERVER_PORT:$ELECTION_PORT"
-        fi
     done
 }
 
