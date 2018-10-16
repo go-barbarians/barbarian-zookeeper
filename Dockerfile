@@ -1,4 +1,4 @@
-FROM dockerbarbarians/barbarian-base:unstable
+FROM dockerbarbarians/barbarian-base:latest
 
 ENV ZK_USER=hadoop \
     ZK_HOME=/opt/barbarian/zookeeper \
